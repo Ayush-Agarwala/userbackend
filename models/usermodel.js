@@ -6,17 +6,14 @@ const userschema=mongoose.Schema(
             type: String,
             required: [true,"Username Mandatory"]
         },
-        gender:{
+        password:{
             type: String,
-            required: [true,"Gneder Mandatory"]
+            required: [true,"Password Mandatory"]
         },
-        age:{
-            type: Number,
-            required: [true,"Age Mandatory"]
-        },
-        position:{
-            type: String,
-            required: [true,"Position Mandatory"]
+        email:{
+            type:String,
+            unique: [true, "email already exists in database!"],
+            required: [true,"Email mandatory"]
         }
     },
     {
