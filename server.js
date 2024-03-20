@@ -18,6 +18,7 @@ function authenticateusermiddlware(req,res,next){
   }
   try {
     const verified = jwt.verify(token, process.env.JWT_SECRETKEY);
+    //console.log(verified);
     req.user = verified;
     next();
     } 
@@ -66,7 +67,7 @@ app.route('/api/users/:userid').get(authenticateusermiddlware,async(req, res) =>
 
 //READ
 
-app.get('/api/users', authenticateusermiddlware ,async(req, res) => {
+app.get('/api/users',authenticateusermiddlware,async(req, res) => {
   try {
     const users=await Usermodel.find({});
     res.status(200).json(users)
@@ -88,7 +89,7 @@ app.post('/api/users/register', async (req, res) => {
   });
   user.save()
   .then(user => {
-  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRETKEY , { expiresIn: '1h' });
+  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRETKEY);
   res.json({ token, user });
   })
   .catch(err => res.status(400).json(err));
